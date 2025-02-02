@@ -3,9 +3,11 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 //       ^ 🕵️‍♂️
+const numberValidator = z.number({ invalid_type_error: "Expected number, received string" });
 
 export const toString = (num: unknown) => {
-  return String(num);
+  const validInput = numberValidator.parse(num);
+  return String(validInput);
 };
 
 // TESTS
