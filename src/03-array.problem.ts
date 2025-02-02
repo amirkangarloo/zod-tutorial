@@ -7,7 +7,12 @@ const StarWarsPerson = z.object({
   name: z.string(),
 });
 
-const StarWarsPeopleResults = z.unknown();
+const StarWarsPeopleResults = z.object({
+  count: z.number(),
+  results: z.object({
+  name: z.string(),
+}).array(),
+})
 //                            ^ 🕵️‍♂️
 
 export const fetchStarWarsPeople = async () => {
