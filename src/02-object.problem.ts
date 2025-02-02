@@ -3,7 +3,11 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 
-const PersonResult = z.unknown();
+const PersonResult = z.object({
+  name: z.string(),
+  height: z.string(),
+  // TODO: Add another keys
+});
 //                   ^ 🕵️‍♂️
 
 export const fetchStarWarsPersonName = async (id: string) => {
