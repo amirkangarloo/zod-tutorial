@@ -3,11 +3,15 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 
+const PrivacyLevel = ["private", "public"] as const;
+
 const Form = z.object({
   repoName: z.string(),
-  privacyLevel: z.string(),
+  privacyLevel: z.enum(PrivacyLevel),
   //              ^ 🕵️‍♂️
 });
+
+type FormType = z.input<typeof Form>
 
 export const validateFormInput = (values: unknown) => {
   const parsedData = Form.parse(values);

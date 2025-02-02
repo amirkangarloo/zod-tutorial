@@ -3,9 +3,15 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 
-const StarWarsPerson = z.object({
+const StarWarsPerson = z
+  .object({
   name: z.string(),
-});
+  })
+  .transform((data) => ({
+    ...data,
+    nameAsArray: data.name.split(" ") 
+  }))
+  ;
 //^ 🕵️‍♂️
 
 const StarWarsPeopleResults = z.object({
@@ -25,7 +31,9 @@ export const fetchStarWarsPeople = async () => {
 // TESTS
 
 it("Should resolve the name and nameAsArray", async () => {
-  expect((await fetchStarWarsPeople())[0]).toEqual({
+  const result = await fetchStarWarsPeople()
+  
+  expect(result[0]).toEqual({
     name: "Luke Skywalker",
     nameAsArray: ["Luke", "Skywalker"],
   });
